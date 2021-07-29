@@ -29,10 +29,12 @@ setInterval(displayTime);
 //Render tables from 8AM to 5PM
 function renderPlanner(){
  var progress = false;
- const localCopy = JSON.parse(localStorage.getItem("storedList")) || [];
+ var localCopy = JSON.parse(localStorage.getItem("storedList")) || [];
  if(localCopy.length===0){
  	 storageInitialize();
  }
+ //copy the localStorage again
+ localCopy = JSON.parse(localStorage.getItem("storedList"));
 
  for (var i=0;i<timeSlot.length;i++){
  	// var hourBlock = document.createElement("div");
