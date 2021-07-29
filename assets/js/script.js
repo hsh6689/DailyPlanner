@@ -30,52 +30,57 @@ setInterval(displayTime);
 function renderPlanner(){
  var progress = false;
  const localCopy = JSON.parse(localStorage.getItem("storedList"));
+ if(localCopy.length===0){
+ 	 storageInitialize();
+ }
+
  for (var i=0;i<timeSlot.length;i++){
  	// var hourBlock = document.createElement("div");
-	var hourBlock = $('<div>');
-	var hourCol = $('<div>');
-	var descCol = $('<textarea>');
-	var saveCol = $('<button>');
+   var hourBlock = $('<div>');
+	 var hourCol = $('<div>');
+	 var descCol = $('<textarea>');
+	 var saveCol = $('<button>');
 
-	var curr = moment().format("hA");
+	 var curr = moment().format("hA");
 
-	hourBlock.attr('class', 'time-block row');
-	hourCol.attr('class', 'hour col-1');
-	//hourCol.append($('<p>').text(timeSlot[i]));
+	 hourBlock.attr('class', 'time-block row');
+	 hourCol.attr('class', 'hour col-1');
+	 //hourCol.append($('<p>').text(timeSlot[i])); 
 
-	descCol.attr('class', 'description col-10');
-	saveCol.attr('class', 'saveBtn col-1');
+	 descCol.attr('class', 'description col-10');
+	 saveCol.attr('class', 'saveBtn col-1');
 
-	hourCol.text(timeSlot[i]);
-	saveCol.text("Save");
-	descCol.text(localCopy[i]["message"]);
+	 hourCol.text(timeSlot[i]);
+	 saveCol.text("Save");
+	 descCol.text(localCopy[i]["message"]);
 	
-	descCol.css('color', 'black');
-	descCol.css('font-size', '20px');
+	 descCol.css('color', 'black');
+	 descCol.css('font-size', '20px');
 
-	console.log("Curr: "+curr+", timeSlot: "+timeSlot[i]);
+	 console.log("Curr: "+curr+", timeSlot: "+timeSlot[i]);
 
-	//Handles coloring based on the current time
-	if(curr===timeSlot[i]){
-		hourBlock.addClass('present');
-		progress=true;
-	}
-	else if(progress===false){
-		hourBlock.addClass('past');
-	}
-	else{
-		hourBlock.addClass('future');
-	}
+	 //Handles coloring based on the current time
+	 if(curr===timeSlot[i]){
+	 	 hourBlock.addClass('present');
+		 progress=true;
+	 }
+	 else if(progress===false){
+		 hourBlock.addClass('past');
+	 }
+	 else{
+		 hourBlock.addClass('future');
+	 }
 
-	hourBlock.append(hourCol);
-	hourBlock.append(descCol);
-	hourBlock.append(saveCol);
-	timeblock.append(hourBlock);
+	 hourBlock.append(hourCol);
+	 hourBlock.append(descCol);
+	 hourBlock.append(saveCol);
+	 timeblock.append(hourBlock);
  }
 
 }
 
 function storageInitialize(){
+	//if storage is empty, intialize
 	const localCopy = [];
 	for (var i=0; i<timeSlot.length;i++){
 		var tempVal ={
@@ -85,10 +90,9 @@ function storageInitialize(){
 	 	localCopy.push(tempVal);
 	}
 	localStorage.setItem("storedList",JSON.stringify(localCopy));
-	return;
+	
 }
 
-//storageInitialize();
 renderPlanner();
 
 //When Save is clicked, save to the localStorage
